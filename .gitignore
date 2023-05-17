@@ -3,3 +3,5 @@ vevn/*
 /*.pyc
 celerybeat-schedule
 *__pycache__
+staticfiles
+static
