@@ -1,3 +1,5 @@
 venv
 vevn/*
-*.pyc
+/*.pyc
+celerybeat-schedule
+*__pycache__
