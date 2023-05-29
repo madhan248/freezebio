@@ -27,11 +27,8 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: docker login
-        env:
-          DOCKER_USER:${{ secrets.DOCKER_USER }}
-          DOCKER_PASSWORD:${{ secrets.DOCKER_PASSWORD }}
         run: |
-          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+          docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }}
       - name: Build the Docker image
         run: docker build . --file Dockerfile --tag madhan248/freezebio:ubuntu-latest
       - name: Docker Push
