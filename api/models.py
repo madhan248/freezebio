@@ -105,3 +105,12 @@ class DeviceData(models.Model):
 
     def __str__(self):
         return "{0}-{1}-{2}-{3}".format(self.device_id,self.timestamp,self.device_type,self.data)
+
+
+class ServiceModel(models.Model):
+    task = models.CharField(max_length=150, default="", blank=True, null=True)
+    timestamp = models.CharField(max_length=150, default="", blank=True, null=True)
+    service = models.CharField(max_length=150, default="", blank=True, null=True)
+
+    def __str__(self):
+        return "{0}-{1}-{2}".format(self.task,self.timestamp,self.service)

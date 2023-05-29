@@ -70,5 +70,3 @@ class ProfileSerializer(serializers.ModelSerializer):
     # Get Email from user model
     def get_email(self,userprofile):
         return userprofile.user.email
-
-# {"email":"madhan@gmail.com","password":"madhan@1"}

@@ -1,13 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Freeze Bio</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
 </head>
 <body>
 
-<p> Welcome Home {{user.username}}</p>
+<h1 id="main">hey bro {{ text}}</h1>
+<script>
+number_one=document.getElementById('main')
+// var wsStart='ws://whole'
+// var endpoint=wsStart + window.location.host + window.location.pathname
+// var socket = new WebSocket('ws://whole')
+// console.log(endpoint)
 
+
+// socket.onopen =function(e){
+// console.log('open',e)
+// socket.send('PING')
+// }
+
+
+// socket.onmessage=function(e){
+// console.log('message',e)
+// number_one.innerHTML=e.data
+// socket.send('PING')
+
+// }
+
+
+// ws = new WebSocket("ws://localhost:8000/practice/2/");
+// ws.onopen = () => console.log("Connected");
+// // ws.send("PING");
+// ws.onmessage = (data) => (document.getElementById('main').innerHTML = data.data,ws.send("PING"));
+
+// Create WebSocket connection.
+const socket = new WebSocket("ws://localhost:8000/practice/madhan/");
+
+// Connection opened
+socket.addEventListener("open", (event) => {
+  socket.send("Hello Server!");
+});
+
+socket.addEventListener("message", (event) => {
+  document.getElementById('main').innerHTML = event.data
+});
+
+
+
+
+
+</script>
 </body>
 </html>

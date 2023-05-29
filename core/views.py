@@ -183,3 +183,6 @@ class UserProfileApi(APIView):
         else:
             response['message'] = serializer.errors
         return Response(data=response)
+
+def random(request):
+    return render(request,'basic_count.html',context={'text':"hello world"})

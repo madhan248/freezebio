@@ -17,6 +17,20 @@ from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
 import json
+
+
+
+
+
+
+
+
+def random(request):
+    return render(request,'core/home.html',context={'text':"hello world"})
+
+
+
+
 # Create your views here.
 
 # def index(request):
@@ -183,3 +197,13 @@ class UserProfileApi(APIView):
         else:
             response['message'] = serializer.errors
         return Response(data=response)
+
+
+# app.conf.beat_schedule = {
+#     # Executes every Monday morning at 7:30 a.m.
+#     'add-every-monday-morning': {
+#         'task': 'tasks.add',
+#         'schedule': crontab(hour=7, minute=30, day_of_week=1),
+#         'args': (16, 16),
+#     },
+# }
