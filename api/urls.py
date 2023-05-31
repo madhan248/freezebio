@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import index,home,example,user_login,user_logout,device_filter,UserProfileApi,random
+from .views import index,home,example,user_login,user_logout,device_filter,UserProfileApi,random,LogView,testview
 # from .api import LoginApiView,ExampleView,LoginView
 from knox import views as knox_views
 from .api import CreateUserView, LoginView, ManageUserView,LoginAPI,CreateUserAPI
@@ -15,6 +15,8 @@ urlpatterns = [
     # path('logout/',user_logout, name="logout"),
     path('home/',home, name="home"),
     path('',random, name="basic"),
+    # path(r'', LogView.as_view()),
+    path(r'test/', testview),
     # path('user-profile/',ExampleView.as_view(), name="LoginApiView"),
 
 

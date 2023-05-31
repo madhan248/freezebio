@@ -5,10 +5,12 @@
     <title>Title</title>
 </head>
 <body>
+{% for i in device_list %}
+<h1 id="status{{i.id}}">{{i.device_id}} disconnected</h1>
+<h1 id="main{{i.id}}">hey {{i.device_id}}</h1>
 
-<h1 id="main">hey bro {{ text}}</h1>
 <script>
-number_one=document.getElementById('main')
+
 // var wsStart='ws://whole'
 // var endpoint=wsStart + window.location.host + window.location.pathname
 // var socket = new WebSocket('ws://whole')
@@ -35,21 +37,21 @@ number_one=document.getElementById('main')
 // ws.onmessage = (data) => (document.getElementById('main').innerHTML = data.data,ws.send("PING"));
 
 // Create WebSocket connection.
-const socket = new WebSocket("ws://localhost:8000/practice/madhan/");
 
 // Connection opened
-socket.addEventListener("open", (event) => {
-  socket.send("Hello Server!");
+
+
+const socket{{i.id}} = new WebSocket("ws://localhost:8000/kafka/{{i.device_id}}/");
+socket{{i.id}}.addEventListener("open", (event) => {
+  // socket.send("Hello Server!");
+document.getElementById('status{{i.id}}').innerHTML = "{{i.device_id}} connected"
 });
 
-socket.addEventListener("message", (event) => {
-  document.getElementById('main').innerHTML = event.data
+socket{{i.id}}.addEventListener("message", (event) => {
+  document.getElementById('main{{i.id}}').innerHTML = event.data
 });
-
-
-
-
 
 </script>
+{% endfor %}
 </body>
 </html>

@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.1/howto/deployment/asgi/
 
 
 import os,django
-from .consumers import MyMqttConsumer,PracticeConsumer
+from .consumers import MyMqttConsumer,PracticeConsumer,KafkaConsumer
 from channels.auth import AuthMiddlewareStack
 from channels.routing import ProtocolTypeRouter, URLRouter
 from django.core.asgi import get_asgi_application
@@ -24,6 +24,7 @@ application = ProtocolTypeRouter({
         'mqtt': MyMqttConsumer.as_asgi(),
         'websocket':URLRouter([
             path('practice/<name>/',PracticeConsumer.as_asgi()),
+            path('kafka/<name>/',KafkaConsumer.as_asgi()),
             ])
        
     })

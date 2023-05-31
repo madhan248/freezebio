@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1 id="main">hey bro</h1>
+<form method="POST">
+  {% csrf_token %}
+  msgbox:<input type="text" name="msgbox"><br>
+  device:<input type="text" name="device"><br>
+  <input type="submit" name="submit">
+</form>
+</body>
+</html>

@@ -18,16 +18,57 @@ from django.contrib.auth.decorators import login_required
 from datetime import datetime
 import json
 
-
-
+from freezebio.consumers import PracticeConsumer
 
 
 
 
 
 def random(request):
-    return render(request,'core/home.html',context={'text':"hello world"})
+    return render(request,'core/home.html',context={'device_list':[{'id':"1","device_id":"madhan"},
+        {'id':"2","device_id":"naveen"},{'id':"3","device_id":"kumar"}]})
 
+
+
+from django.views.generic import TemplateView
+from django.http import HttpResponse
+
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
+
+
+class LogView(TemplateView):
+    template_name = "core/home.html"
+
+
+# def testview(request):
+#     channel_layer = get_channel_layer()
+
+#     async_to_sync(channel_layer.group_send)(
+#         'kafka',
+#         {
+#             'type': 'kafka.message',
+#             'message': "msg from test"
+#         }
+#     )
+#     return HttpResponse('<p>Done</p>')
+
+def testview(request):
+    print(request.POST.get("msgbox"))
+    if request.method == "POST":
+        message = request.POST.get("msgbox")
+        device_name = request.POST.get("device")
+        channel_layer = get_channel_layer()
+
+        async_to_sync(channel_layer.group_send)(
+            device_name,
+            {
+                'type': 'kafka.message',
+                'message': message
+            }
+        )
+        return HttpResponse('<p>Done</p>')
+    return render(request,"core/charts.html",{})
 
 
 
