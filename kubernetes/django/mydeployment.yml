@@ -2,16 +2,15 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: freezebio-django-deployment
-  namespace: default
   labels:
     app: freezebio-django
 spec:
   replicas: 2
-  # strategy:
-  #   type: RollingUpdate
-  #   rollingUpdate:
-  #     maxSurge: 1
-  #     maxUnavailable: 0
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
   selector:
     matchLabels:
       app: freezebio-django
@@ -19,22 +18,17 @@ spec:
     metadata:
       labels:
         app: freezebio-django
-      # annotations:
     spec:
-      # terminationGracePeriodSeconds: 300
-      # imagePullSecrets:
-        # -name: dockerconfigjson-github-com
       containers:
-        - name: freezebio-django-docker-image
-          image: madhan248/freezebio:latest
-          imagePullPolicy: IfNotPresent
-          # resources:
-          #   requests:
-          #     cpu: "250m"
-          #     memory: "100M"
-          #   limits:
-          #     cpu: "500m"
-          #     memory: "100M"
+        - name: hitman-rest-api-docker-image
+          image: ghcr.io/john-doherty01/hitman-rest-api:VERSION
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "100M"
+            limits:
+              cpu: "500m"
+              memory: "1000M"
           ports:
             - containerPort: 8000
           readinessProbe:
@@ -59,7 +53,7 @@ spec:
   selector:
     app: freezebio-django
   ports:
-    - port: 80
+    - port: 8000
       name: http
       targetPort: 8000
     - port: 443
