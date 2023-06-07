@@ -119,4 +119,4 @@ class UserProfileViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=['post','get'])
     def some_action(self, request, pk=None):
-        return Response({"message":"Some Actions","pk":pk})
+        return Response({"message":"Some Actions","pk":pk,"ports":request.get_port()})
