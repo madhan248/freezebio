@@ -18,4 +18,4 @@ COPY . /usr/src/app
 
 EXPOSE 8000
 
-CMD ["python", "manage.py", "mqttasgirun"]
+CMD ["python", "manage.py", "runserver"]
