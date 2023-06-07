@@ -34,6 +34,7 @@ from django.contrib.auth import  authenticate
 from .models import UserProfile,Events
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
+from django.contrib.auth.hashers import make_password
 
 class LoginUserSerializer(serializers.Serializer):
     email = serializers.EmailField()
@@ -43,13 +44,13 @@ class LoginUserSerializer(serializers.Serializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        # fields = '__all__'
-        fields = ("id","username", "email", "first_name", "last_name")
-        # write_only_fields = ('password')
-        # extra_kwargs = {'password': {'write_only': True, 'min_length': 8}}
+        fields = ("id","username", "email", "first_name", "last_name","password")
+        extra_kwargs = {'password': {'write_only': True}}
     
     def create(self, validated_data):
-        return User.objects.create_user(**validated_data) 
+        validated_data['password'] = make_password(validated_data['password'])
+        user = User.objects.create(**validated_data)
+        return user 
 
 #     Create User Without Password
 #     def create(self, validated_data):
@@ -59,14 +60,42 @@ class UserSerializer(serializers.ModelSerializer):
 #       print(user)
 #       return user
 
-class ProfileSerializer(serializers.ModelSerializer):
+class CreateUserProfileSerializer(serializers.ModelSerializer):
     # email = serializers.SerializerMethodField('get_email')
-    email = serializers.EmailField(source='user.email')
-    username = serializers.CharField(source='user.username')
+    # email = serializers.EmailField(source='user.email')
+    # username = serializers.CharField(source='user.username')
+    user = UserSerializer()
     class Meta:
         model = UserProfile
-        fields = ('number','organization','verified','admin','Dob','designation','email','username')
-        depth = 1
+        fields = ('number','organization','verified','admin','Dob','designation','user')
+        extra_kwargs = {'password': {'write_only': True}}
     # Get Email from user model
     def get_email(self,userprofile):
         return userprofile.user.email
+
+    def create(self, validated_data):
+        print("93",validated_data)
+        user_data = validated_data.get('user')
+        user_data['password'] = make_password(user_data['password'])
+        user = User.objects.create_user(**user_data)
+        validated_data['user'] = user
+        userprofile = UserProfile.objects.create(**validated_data)
+        return userprofile
+
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserProfile
+        fields = '__all__'
+
+
+d = {
+"user":{
+"username":"hari",
+"email":"hari@gmail.com",
+"password":"hari@1"},
+"designation":"developer",
+"number":"+919620293056",
+"admin":"false",
+"verified":"false"
+}

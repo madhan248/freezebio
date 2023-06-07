@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "phonenumber_field",
     # 'core',
+    'django_filters',
     'rest_framework',
     'knox',
     'api',
@@ -211,6 +212,7 @@ ASGI_APPLICATION = "freezebio.asgi.application"
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',),
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
 }
 
 

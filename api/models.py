@@ -87,6 +87,9 @@ class DeviceDataManager(models.QuerySet):
     
     def data_query_set(self,device_id,query_start,query_end):
         return self.filter(device_id=device_id,timestamp__gte=int(query_start),timestamp__lte=int(query_end))
+
+    def latest_10_query_set(self,device_id):
+        return self.filter(device_id=device_id).order_by('-timestamp')[:10]
     
     def latest_query_set(self,device_id):
         return self.filter(device_id=device_id).first()
