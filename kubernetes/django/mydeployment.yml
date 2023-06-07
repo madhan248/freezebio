@@ -26,7 +26,7 @@ spec:
         # -name: dockerconfigjson-github-com
       containers:
         - name: freezebio-django-docker-image
-          image: madhan248/freezebio:latest
+          image: madhan248/freezebio:freezebiolatest
           imagePullPolicy: IfNotPresent
           resources:
             requests:
@@ -41,14 +41,14 @@ spec:
             httpGet:
               path: /admin/login/?next=/admin/
               port: 8000
-            initialDelaySeconds: 30
-            periodSeconds: 20
+            initialDelaySeconds: 200
+            periodSeconds: 200
           livenessProbe:
             httpGet:
               path: /admin/login/?next=/admin/
               port: 8000
-            initialDelaySeconds: 15
-            periodSeconds: 120
+            initialDelaySeconds: 200
+            periodSeconds: 200
 
 ---
 apiVersion: v1
@@ -66,28 +66,3 @@ spec:
       name: https
       targetPort: 8000
   type: LoadBalancer
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
