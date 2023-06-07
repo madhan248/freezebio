@@ -34,4 +34,4 @@ jobs:
       - name: Build the Docker Image
         run: docker build . --file Dockerfile --tag madhan248/freezebio:latest
       - name: Docker Push
-        run: docker push ${{ secrets.DOCKER_USER }}/freezebio:freezebiolatest
+        run: docker push ${{ secrets.DOCKER_USER }}/freezebio:latest
